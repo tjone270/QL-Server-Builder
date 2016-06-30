@@ -23,6 +23,7 @@
     "fraglimit",
     "g_instaGib",
     "g_infiniteAmmo",
+    "capturelimit",
   );
 
   // predefined plugins - array of all plugins the web interface is allowed to load
