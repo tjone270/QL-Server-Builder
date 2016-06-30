@@ -1,0 +1,2 @@
+# prevent anyone but tjone270 from accessing template files
+deny from all

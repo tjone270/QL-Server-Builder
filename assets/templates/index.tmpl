@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include 'header.tmpl' %}
+    {% if message %}
+      <script>showMessageBox()</script>
+    {% endif %}
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h2>TomTec {{ service_name }}</h2><h6>{{ service_version }}</h6><br />
+        <p>{{ service_name }} is a Quake Live server spawn website, which allows you to spin up your own dedicated Quake Live server, located in a datacentre, entirely free and with ease.</p>
+      </div>
+      <form method="post" class="form-horizontal" role="form">
+        <div class="panel panel-primary">
+          <div class="panel-heading">Server Information</div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Name</label>
+              <div class="col-sm-10">
+                <input class="form-control" id="focusedInput" type="text" name="sv_hostname" placeholder="as displayed in server browser">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Message</label>
+              <div class="col-sm-10">
+                <input class="form-control" id="focusedInput" type="text" name="qlx_serverBrandName" placeholder="as displayed in map loading screen/scoreboard">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Location</label>
+              <div class="col-sm-10">
+                <select class="form-control" id="focusedInput" name="server_location">
+                  {% for location in locations %}
+                    <option>{{ location }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Tags</label>
+              <div class="col-sm-10">
+                <input class="form-control" id="focusedInput" type="text" name="sv_tags" placeholder="comma-delimited list of tags">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Password</label>
+              <div class="col-sm-10">
+                <input class="form-control" id="focusedInput" type="text" name="g_password" placeholder="leave blank for public/unlocked">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">Server Startup</div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Map</label>
+              <div class="col-sm-10">
+                <select class="form-control" id="server_map" name="server_map">
+                  {% for map, map_title in maps|sort %}
+                    {% if map == "campgrounds" %}
+                      <option selected value="{{ map }}">{{ map_title }}</option>
+                    {% else %}
+                      <option value="{{ map }}">{{ map_title }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Factory</label>
+              <div class="col-sm-10">
+                <select class="form-control" id="server_factory" onchange="updateFactory()" name="server_factory">
+                  {% for factory, factory_title in factories %}
+                    {% if factory == "ca" %}
+                      <option selected value="{{ factory }}">{{ factory_title }}</option>
+                    {% else %}
+                      <option value="{{ factory }}">{{ factory_title }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+                <div class="checkbox">
+                  <label><input type="checkbox" name="server_factory_pql" value="1">PQL</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">Configuration</div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Round Timelimit<br /><i>(for round-based modes)</i></label>
+              <div class="col-sm-2">
+                <input type="radio" name="roundtimelimit" value="90"> 90 seconds <br />
+                <input type="radio" name="roundtimelimit" value="120" checked> 120 seconds <br />
+                <input type="radio" name="roundtimelimit" value="180"> 180 seconds <br />
+                <input type="radio" name="roundtimelimit" value="0"> Unlimited
+              </div>
+              <label class="col-sm-2 control-label">Fraglimit</label>
+              <div class="col-sm-2">
+                <input type="radio" name="fraglimit" value="25"> 25 frags <br />
+                <input type="radio" name="fraglimit" value="50" checked> 50 frags <br />
+                <input type="radio" name="fraglimit" value="100"> 100 frags <br />
+                <input type="radio" name="fraglimit" value="0"> Unlimited
+              </div>
+              <label class="col-sm-2 control-label">Timelimit</label>
+              <div class="col-sm-2">
+                <input type="radio" name="timelimit" value="10"> 10 minutes <br />
+                <input type="radio" name="timelimit" value="15" checked> 15 minutes <br />
+                <input type="radio" name="timelimit" value="20"> 20 minutes <br />
+                <input type="radio" name="timelimit" value="0"> Unlimited
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Bots</label>
+              <div class="col-sm-2">
+                <div class="checkbox">
+                  <label><input type="checkbox" name="server_plugins[]" value="botmanager">Enable Bots</label>
+                </div>
+                <div class="checkbox">
+                  <label><input type="checkbox" name="bot_autoManage" value="1">Automatically Add/Remove Bots</label>
+                </div>
+              </div>
+              <label class="col-sm-2 control-label">Death Effects</label>
+              <div class="col-sm-2">
+                <div class="checkbox">
+                  <label><input type="checkbox" name="qlx_workshopReferences" value="691078677">Force <font color="red">Gibs</font></label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Modifications</label>
+              <div class="col-sm-2">
+                <div class="checkbox">
+                  <label><input type="checkbox" name="server_plugins[]" value="balance">Elo/Glicko Balancing</label>
+                </div>
+                <div class="checkbox">
+                  <label><input type="checkbox" name="server_plugins[]" value="custom_votes" checked><a href="http://tomtecsolutions.com.au/thepurgery/index.php?title=Special_votes">Custom votes</a></label>
+                </div>
+                <div class="checkbox">
+                  <label><input type="checkbox" name="server_plugins[]" value="names" checked>Coloured names <i>(imported from The Purgery)</i></label>
+                </div>
+                <div class="checkbox">
+                  <label><input type="checkbox" name="server_plugins[]" value="clan" checked>Clan tags <i>(imported from The Purgery)</i></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">Weapons</div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Enabled Weapons</label>
+              <div class="col-sm-3">
+                <div class="checkbox">
+                  <label id="defaultWeaponsCheckboxLabel"><input type="checkbox" onclick="enableWeaponCheckboxes()" name="g_startingWeapons[]" value="DEFAULT" checked>Default for Clan Arena</label>
+                </div><br />
+                {% for weapon, weapon_name in weapons %}
+                  <div class="checkbox">
+                    <label><input type="checkbox" class="weapon_checkbox" name="g_startingWeapons[]" value="{{ weapon }}" disabled><img height="24" width="24" src="assets/images/weapons/{{ weapon }}.png" title="{{ weapon_name }}"> {{ weapon_name }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+              <label class="col-sm-2 control-label">Weapon Settings</label>
+              <div class="col-sm-2">
+                <div class="checkbox">
+                  <label><input type="checkbox" name="g_instaGib" value="1">Insta-Gib</label>
+                </div>
+                <div class="checkbox">
+                  <label><input type="checkbox" name="g_infiniteAmmo" value="1">Infinite Ammo</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="right">
+          <button type="submit" class="btn btn-primary">Spawn Server</button>
+        </div>
+        {% if flushenabled %}
+          <button type="submit" name="flushdb" class="btn btn-danger">Flush DB</button>
+        {% endif %}
+      </form>
+      <br /><br />
+      {% if message %}
+        <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="messageModalLabel">Server Message</h4>
+              </div>
+              <div class="modal-body">
+                <p>{{ message|raw }}</p>
+                {% if map_selected %}
+                  <img class="img-thumbnail img-responsive" src="assets/images/levelshots/{{ map_selected }}.jpg" alt="{{ map_selected }} - Levelshot"/>
+                {% endif %}
+              </div>
+              <div class="modal-footer">
+                {% if joinlink %}
+                  <a href="steam://connect/{{ net_ip }}:{{ net_port }}"><button title="/connect {{ net_ip }}:{{ net_port }}" class="btn btn-success">Join Server</button></a><br />
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+      {% include 'footer.tmpl' %}
+    </div>
+  </body>
+</html>

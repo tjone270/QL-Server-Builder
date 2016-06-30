@@ -1,0 +1,14 @@
+/* Created by Thomas 'Purger' Jones (tjone270) on 25/06/2016 */
+/* Global CSS stylesheet file */
+
+.centered {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.inline {
+  display: inline-block;
+}
