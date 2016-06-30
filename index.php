@@ -9,7 +9,9 @@
 
   if (wasRequestPost()) {
     if (isset($_POST["flushdb"])) {
-      eraseDb($db);
+      if ($flushenabled) {
+        eraseDb($db);
+      }
     }
 
     $location = getLocation();
@@ -35,7 +37,7 @@
     setAllPlugins($serverkey, $db);
     setServerStartup($serverkey, $db);
     activateServer($serverkey, $db);
-    
+
     logEvent("Server (" . safe_getpostvar("sv_hostname") . ") created in " . $location . ": /connect " . getServerIp($location) . ":" . getServerPort($serverId), "servers");
   }
   render_page("index.tmpl", $pageVars);
