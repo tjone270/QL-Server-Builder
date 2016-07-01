@@ -57,6 +57,7 @@
     if (getWeaponBitmask()) {
       setCvar("g_startingWeapons", getWeaponBitmask(), $serverkey, $db); // set up weapons
     }
+    setCvar("g_voteFlags", getVoteFlagsBitmask(), $serverkey, $db); // set up vote flags
   }
 
   // function that returns all plugins
@@ -86,7 +87,7 @@
     }
   }
 
-  // function that returns the weapon bitmask
+  // function that returns the g_startingWeapons bitmask
   function getWeaponBitmask() {
     $bitmask = 0;
     $weapons = safe_getpostvar("g_startingWeapons");
@@ -102,9 +103,19 @@
     return $bitmask;
   }
 
+  // function that returns the g_voteFlags bitmask (inverted for user friendliness)
+  function getVoteFlagsBitmask() {
+    $bitmask = 32767;
+    $voteflags = safe_getpostvar("g_voteFlags");
+    foreach ($voteflags as $flag) {
+      $bitmask = $bitmask - $flag;
+    }
+    return $bitmask;
+  }
+
   // return the selected factory
   function getServerFactory() {
-    $submitted = safe_getpostvar("server_factory");
+    $submitted = safe_getpostvar("g_voteFlags");
     $pql = safe_getpostvar("server_factory_pql");
     if ($pql == "1") {
       $factory = "pql" . $submitted;
