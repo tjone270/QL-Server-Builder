@@ -10,7 +10,7 @@ class serverbuilder_node(minqlx.Plugin):
         self.set_cvar("qlx_serverBrandTopField", "Powered by ^4TomTec Solutions^7 Quake Live server hosting and management technologies.")
         self.set_cvar("qlx_serverBrandBottomField", "Visit ^2serverbuilder.thepurgery.com^7 to make your own Quake Live server.")
         
-        self.add_command("getinfo", self.cmd_getinfo, 0)
+        self.add_command("getinfo", self.cmd_getinfo, 5)
         
         self.add_hook("player_connect", self.handle_player_connect)
         self.add_hook("player_loaded", self.handle_player_loaded)
