@@ -90,6 +90,9 @@
   function getWeaponBitmask() {
     $bitmask = 0;
     $weapons = safe_getpostvar("g_startingWeapons");
+    if ($weapons == "") {
+      return false;
+    }
     foreach ($weapons as $weapon) {
       if ($weapon == "DEFAULT") {
         return false;
