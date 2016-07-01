@@ -24,6 +24,7 @@
     "g_instaGib",
     "capturelimit",
     "qlx_infiniteAmmo",
+    "g_inactivity",
   );
 
   // predefined plugins - array of all plugins the web interface is allowed to load
