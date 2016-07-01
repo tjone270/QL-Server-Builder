@@ -170,7 +170,7 @@
               <label class="col-sm-2 control-label">Enabled Weapons</label>
               <div class="col-sm-3">
                 <div class="checkbox">
-                  <label id="defaultWeaponsCheckboxLabel"><input type="checkbox" onclick="enableWeaponCheckboxes()" name="g_startingWeapons[]" value="DEFAULT" checked>Default for Clan Arena</label>
+                  <label id="defaultWeaponsCheckboxLabel"><input type="checkbox" id="defaultWeaponsCheckbox" onclick="toggleWeaponCheckboxes()" name="g_startingWeapons[]" value="DEFAULT" checked>Default for Clan Arena</label>
                 </div><br />
                 {% for weapon, weapon_name in weapons %}
                   <div class="checkbox">
@@ -181,12 +181,13 @@
               <label class="col-sm-2 control-label">Weapon Settings</label>
               <div class="col-sm-4">
                 <div class="checkbox">
-                  <label><input type="checkbox" name="g_instaGib" value="1">Insta-Gib</label><br /><br />
+                  <label><input type="checkbox" onclick="toggleInstagib()" name="g_instaGib" value="1">Insta-Gib</label>
+                  <font color="red"><p id="instaGibMessage"></p></font><br /><br />
                 </div>
                 <div>
-                  <input type="radio" name="qlx_infiniteAmmo" value="0"> Normal Ammo <br />
-                  <input type="radio" name="qlx_infiniteAmmo" value="2" checked> Infinite Ammo (during warmup only) <br />
-                  <input type="radio" name="qlx_infiniteAmmo" value="1"> Infinite Ammo (always)
+                  <input type="radio" class="infiniteammo-radio" name="qlx_infiniteAmmo" value="0"> Normal Ammo <br />
+                  <input type="radio" class="infiniteammo-radio" name="qlx_infiniteAmmo" value="2" checked> Infinite Ammo (during warmup only) <br />
+                  <input type="radio" class="infiniteammo-radio" name="qlx_infiniteAmmo" value="1"> Infinite Ammo (always)
                 </div>
               </div>
             </div>
