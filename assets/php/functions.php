@@ -115,7 +115,7 @@
 
   // return the selected factory
   function getServerFactory() {
-    $submitted = safe_getpostvar("g_voteFlags");
+    $submitted = safe_getpostvar("server_factory"); 
     $pql = safe_getpostvar("server_factory_pql");
     if ($pql == "1") {
       $factory = "pql" . $submitted;
