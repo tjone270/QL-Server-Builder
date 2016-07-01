@@ -22,8 +22,8 @@
     "timelimit",
     "fraglimit",
     "g_instaGib",
-    "g_infiniteAmmo",
     "capturelimit",
+    "qlx_infiniteAmmo",
   );
 
   // predefined plugins - array of all plugins the web interface is allowed to load

@@ -173,12 +173,14 @@
                 {% endfor %}
               </div>
               <label class="col-sm-2 control-label">Weapon Settings</label>
-              <div class="col-sm-2">
+              <div class="col-sm-4">
                 <div class="checkbox">
-                  <label><input type="checkbox" name="g_instaGib" value="1">Insta-Gib</label>
+                  <label><input type="checkbox" name="g_instaGib" value="1">Insta-Gib</label><br /><br />
                 </div>
-                <div class="checkbox">
-                  <label><input type="checkbox" name="g_infiniteAmmo" value="1">Infinite Ammo</label>
+                <div>
+                  <input type="radio" name="qlx_infiniteAmmo" value="0"> Normal Ammo <br />
+                  <input type="radio" name="qlx_infiniteAmmo" value="2" checked> Infinite Ammo (during warmup only) <br />
+                  <input type="radio" name="qlx_infiniteAmmo" value="1"> Infinite Ammo (always)
                 </div>
               </div>
             </div>
