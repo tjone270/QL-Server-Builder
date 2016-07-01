@@ -131,12 +131,6 @@
                   <label><input type="checkbox" name="bot_autoManage" value="1">Automatically Add/Remove Bots</label>
                 </div>
               </div>
-              <label class="col-sm-2 control-label">Death Effects</label>
-              <div class="col-sm-2">
-                <div class="checkbox">
-                  <label><input type="checkbox" name="qlx_workshopReferences" value="691078677">Force <font color="red">Gibs</font></label>
-                </div>
-              </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Modifications</label>
@@ -154,11 +148,25 @@
                   <label><input type="checkbox" name="server_plugins[]" value="clan" checked>Clan tags <i>(imported from The Purgery)</i></label>
                 </div>
               </div>
+              <label class="col-sm-2 control-label">Death Effects</label>
+              <div class="col-sm-2">
+                <div class="checkbox">
+                  <label><input type="checkbox" name="qlx_workshopReferences" value="691078677">Force <font color="red">Gibs</font></label>
+                </div>
+              </div>
               <label class="col-sm-2 control-label">Inactivity Kick</label>
               <div class="col-sm-2">
                 <div class="checkbox">
                   <label><input type="checkbox" name="g_inactivity" value="120">Kick AFK players after 120 seconds</label>
                 </div>
+              </div>
+              <label class="col-sm-2 control-label">Enabled Votes</label>
+              <div class="col-sm-3">
+                {% for vote_flag, vote_name in voteflags %}
+                  <div class="checkbox">
+                    <label><input type="checkbox" name="g_voteFlags[]" value="{{ vote_flag }}" checked> {{ vote_name }}</label>
+                  </div>
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -182,12 +190,21 @@
               <div class="col-sm-4">
                 <div class="checkbox">
                   <label><input type="checkbox" onclick="toggleInstagib()" name="g_instaGib" value="1">Insta-Gib</label>
-                  <font color="red"><p id="instaGibMessage"></p></font><br /><br />
+                  <font color="red"><p id="instaGibMessage"></p></font>
                 </div>
+              </div>
+              <label class="col-sm-2 control-label">Ammo</label>
+              <div class="col-sm-4">
                 <div>
                   <input type="radio" class="infiniteammo-radio" name="qlx_infiniteAmmo" value="0"> Normal Ammo <br />
                   <input type="radio" class="infiniteammo-radio" name="qlx_infiniteAmmo" value="2" checked> Infinite Ammo (during warmup only) <br />
                   <input type="radio" class="infiniteammo-radio" name="qlx_infiniteAmmo" value="1"> Infinite Ammo (always)
+                </div>
+              </div>
+              <label class="col-sm-2 control-label">Loadouts</label>
+              <div class="col-sm-4">
+                <div class="checkbox">
+                  <label><input type="checkbox" name="g_loadout" value="1">Enable</label>
                 </div>
               </div>
             </div>

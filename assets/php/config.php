@@ -80,6 +80,25 @@
     "8192" => "Heavy Machinegun",
   );
 
+  // vote flags
+  $GLOBALS["voteflags"] = array(
+    "1" => "Map",
+    "2" => "Map Restart",
+    "4" => "Next Map",
+    "8" => "Factory Change",
+    "16" => "Kick",
+    "32" => "Timelimit",
+    "64" => "Fraglimit",
+    "128" => "Shuffle",
+    "256" => "Teamsize",
+    "512" => "Cointoss/Random Number",
+    "1024" => "Loadouts",
+    "2048" => "End-Game Map Selection",
+    "4096" => "Global/Weapon Ammo Boxes",
+    "8192" => "Item Timers",
+    "16384" => "Weapon Respawn Times",
+  );
+
   // game maps
   $GLOBALS["maps"] = array(
     "aerowalk" => "Aerowalk",
@@ -254,4 +273,5 @@
     "factories" => $GLOBALS["factories"],
     "maps" => $GLOBALS["maps"],
     "weapons" => $GLOBALS["weapons"],
+    "voteflags" => $GLOBALS["voteflags"],
   );
