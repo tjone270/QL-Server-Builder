@@ -25,6 +25,7 @@
     "capturelimit",
     "qlx_infiniteAmmo",
     "g_inactivity",
+    "g_loadout",
   );
 
   // predefined plugins - array of all plugins the web interface is allowed to load
