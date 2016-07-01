@@ -31,7 +31,7 @@ class serverbuilder_node(minqlx.Plugin):
 
 
     def initialise(self):
-        minqlx.load_plugin("serverbuilder_extras")
+        minqlx.load_plugin("serverbuilder_helper")
         self.database.set("{}:receiving".format(self.server_key), "1")
         self.checkForConfiguration()
 
